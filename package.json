@@ -1,0 +1,47 @@
+{
+  "author": "Jeswin Kumar <jeswinpk@agilehead.com>",
+  "name": "isotropy-adapter-react-relay",
+  "version": "0.6.0",
+  "description": "React adapter for Isotropy.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeswin/isotropy-adapter-react-relay.git"
+  },
+  "scripts": {
+    "update-schema": "node ./dist/scripts/updateSchema.js",
+    "test": "mocha dist/test/test.js"
+  },
+  "main": "dist/isotropy-adapter-react-relay",
+  "license": "MIT",
+  "dependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "react-relay": "*",
+    "isomorphic-relay": "*"
+  },
+  "devDependencies": {
+    "express": "*",
+    "express-graphql": "*",
+    "graphql": "*",
+    "graphql-relay": "*",
+    "babel-polyfill": "*",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "babel-preset-stage-2": "*",
+    "babel-plugin-transform-class-properties": "*",
+    "babel-relay-plugin-loader": "*",
+    "mocha": "*",
+    "should": "*"
+  },
+  "metadata": {
+    "graphql": {
+      "schema": "./dist/test/my-schema.json"
+    }
+  },
+  "keywords": [
+    "react",
+    "relay",
+    "isomorphic",
+    "isotropy"
+  ]
+}
