@@ -1,7 +1,7 @@
 {
   "author": "Jeswin Kumar <jeswinpk@agilehead.com>",
   "name": "isotropy-adapter-react-relay",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "React adapter for Isotropy.",
   "repository": {
     "type": "git",
@@ -17,7 +17,8 @@
     "react": "*",
     "react-dom": "*",
     "react-relay": "*",
-    "isomorphic-relay": "*"
+    "isomorphic-relay": "*",
+    "isotropy-interfaces": "*"
   },
   "devDependencies": {
     "express": "*",

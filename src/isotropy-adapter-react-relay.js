@@ -6,7 +6,7 @@ import IsomorphicRelay from "isomorphic-relay";
 import Relay from 'react-relay';
 import RelayStore from 'react-relay/lib/RelayStore';
 
-import type { IncomingMessage, ServerResponse } from "./flow/http";;
+import type { IncomingMessage, ServerResponse } from "isotropy-interfaces/node/http";
 
 export type RenderArgsType = {
   component: Function,
