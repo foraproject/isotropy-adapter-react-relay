@@ -32,7 +32,6 @@ describe("Isotropy React-Relay Adapter", () => {
 
   staticMarkupTypes.forEach((isStatic) => {
     it(`Should serve a React UI${isStatic ? "with Static Markup" : ""}`, () => {
-      const component = MyComponent;
       const req = {};
       const res = {
         body: "",
@@ -40,7 +39,7 @@ describe("Isotropy React-Relay Adapter", () => {
       };
 
       adapter.render({
-        component,
+        Component: MyComponent,
         args: { name: "Jeswin"},
         req,
         res,
@@ -55,7 +54,6 @@ describe("Isotropy React-Relay Adapter", () => {
     });
 
     it(`Should serve a Relay + React UI${isStatic ? "with Static Markup" : ""}`, async () => {
-      const relayContainer = MyRelayComponent;
       const req = {};
       const res = {
         body: "",
@@ -63,9 +61,10 @@ describe("Isotropy React-Relay Adapter", () => {
       };
 
       const graphqlUrl = `http://localhost:8080/graphql`;
+
       await adapter.renderRelayContainer({
-        relayContainer,
-        relayRoute: MyRelayRoute,
+        Container: MyRelayComponent,
+        RelayRoute: MyRelayRoute,
         args: { id: "200" },
         req,
         res,

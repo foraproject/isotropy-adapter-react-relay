@@ -9,7 +9,7 @@ import RelayStore from 'react-relay/lib/RelayStore';
 import type { IncomingMessage, ServerResponse } from "isotropy-interfaces/node/http";
 
 export type RenderArgsType = {
-  component: Function,
+  Component: Function,
   req: IncomingMessage,
   res: ServerResponse,
   args: Object,
@@ -18,8 +18,8 @@ export type RenderArgsType = {
 }
 
 export type RenderRelayContainerArgsType = {
-  relayContainer: Function,
-  relayRoute: Object,
+  Container: Function,
+  RelayRoute: Function,
   req: IncomingMessage,
   res: ServerResponse,
   args: Object,
@@ -29,8 +29,8 @@ export type RenderRelayContainerArgsType = {
 }
 
 const render = async function(params: RenderArgsType) : Promise {
-  const { component, args, req, res, toHtml, renderToStaticMarkup } = params;
-  const reactElement = React.createElement(component, args);
+  const { Component, args, req, res, toHtml, renderToStaticMarkup } = params;
+  const reactElement = React.createElement(Component, args);
   const _toHtml = toHtml || ((x, args, data) => x);
   const _renderToStaticMarkup = (typeof renderToStaticMarkup !== "undefined" && renderToStaticMarkup !== null) ? renderToStaticMarkup : false;
   const html = !_renderToStaticMarkup ? ReactDOMServer.renderToString(reactElement) : ReactDOMServer.renderToStaticMarkup(reactElement);
@@ -39,21 +39,17 @@ const render = async function(params: RenderArgsType) : Promise {
 
 
 const renderRelayContainer = async function(params: RenderRelayContainerArgsType) : Promise {
-  const { relayContainer, relayRoute, args, req, res, graphqlUrl, toHtml, renderToStaticMarkup } = params;
-
-  const _relayRoute = Object.assign({}, relayRoute);
-  _relayRoute.params = Object.assign({}, relayRoute.params, args);
-
+  const { Container, RelayRoute, args, req, res, graphqlUrl, toHtml, renderToStaticMarkup } = params;
   const rootContainerProps = {
-    Component: relayContainer,
-    route: _relayRoute
+    Container: Container,
+    queryConfig: new RelayRoute({})
   };
 
-  Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer(graphqlUrl));
+  const networkLayer = new Relay.DefaultNetworkLayer(graphqlUrl);
   RelayStore.getStoreData().getChangeEmitter().injectBatchingStrategy(() => {});
 
-  const {data, props} = await IsomorphicRelay.prepareData(rootContainerProps);
-  const relayElement = <IsomorphicRelay.RootContainer {...props} />;
+  const {data, props} = await IsomorphicRelay.prepareData(rootContainerProps, networkLayer);
+  const relayElement = <IsomorphicRelay.Renderer {...props} />;
   const _toHtml = toHtml || ((x, args, data) => x);
   const _renderToStaticMarkup = (typeof renderToStaticMarkup !== "undefined" && renderToStaticMarkup !== null) ? renderToStaticMarkup : false;
   const html = !_renderToStaticMarkup ? ReactDOMServer.renderToString(relayElement) : ReactDOMServer.renderToStaticMarkup(relayElement);
