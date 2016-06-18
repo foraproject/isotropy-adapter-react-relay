@@ -42,7 +42,7 @@ const renderRelayContainer = async function(params: RenderRelayContainerArgsType
   const { Container, RelayRoute, args, req, res, graphqlUrl, toHtml, renderToStaticMarkup } = params;
   const rootContainerProps = {
     Container: Container,
-    queryConfig: new RelayRoute({})
+    queryConfig: new RelayRoute(args)
   };
 
   const networkLayer = new Relay.DefaultNetworkLayer(graphqlUrl);
